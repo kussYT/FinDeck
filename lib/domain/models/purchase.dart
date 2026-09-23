@@ -1,7 +1,10 @@
+import 'package:findeck/domain/market_code.dart';
+
 /// Achat fictif accepté par les formules de valorisation.
 ///
-/// Seuls le symbole, la quantité, le prix unitaire et la devise sont
-/// nécessaires ici. L'identifiant et la date seront ajoutés avec la persistance.
+/// Le symbole, la quantité, le prix unitaire et la devise suffisent au
+/// calcul. L'identifiant local, la place de cotation et la date sont portés
+/// par l'achat persisté, pas par cette valeur.
 final class Purchase {
   const Purchase._({
     required this.symbol,
@@ -21,8 +24,8 @@ final class Purchase {
     required double unitPrice,
     required String currency,
   }) {
-    final normalizedSymbol = symbol.trim().toUpperCase();
-    if (normalizedSymbol.isEmpty) {
+    final normalizedSymbol = normalizeMarketCode(symbol);
+    if (normalizedSymbol == null) {
       return const InvalidPurchase(PurchaseRejection.blankSymbol);
     }
     if (!quantity.isFinite) {
@@ -37,8 +40,8 @@ final class Purchase {
     if (unitPrice <= 0) {
       return const InvalidPurchase(PurchaseRejection.nonPositiveUnitPrice);
     }
-    final normalizedCurrency = currency.trim().toUpperCase();
-    if (normalizedCurrency.isEmpty) {
+    final normalizedCurrency = normalizeMarketCode(currency);
+    if (normalizedCurrency == null) {
       return const InvalidPurchase(PurchaseRejection.blankCurrency);
     }
 

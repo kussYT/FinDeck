@@ -10,17 +10,17 @@ Source normative : *Projet Flutter — Investment Companion*, année universitai
 | R02 | Formulaire avec validation (§11) | Ajout d'une opération fictive : actif, quantité, prix, date | Tests de validation + démo | Non |
 | R03 | Liste dynamique (§11) | Catalogue/recherche de marché ; favoris et collection sont aussi dynamiques | Démo avec données chargées | Non |
 | R04 | API REST et JSON vers objets Dart (§4, §11) | Twelve Data derrière une source distante et des DTO | Test de mapping + appel contrôlé | Non |
-| R05 | Persistance de données métier (§5, §11) | Favoris, collection, gemmes et portefeuille dans SQLite | Redémarrage de l'application | Non |
+| R05 | Persistance de données métier (§5, §11) | Favoris, collection, gemmes et portefeuille dans SQLite | Redémarrage de l'application | Partiel : achats fictifs et favoris relus depuis un fichier SQLite ; collection, gemmes et redémarrage de l'application non faits |
 | R06 | Cache local de données API (§5, §11) | Actifs, dernières valeurs et historiques horodatés dans SQLite | Inspection DB + test repository | Non |
 | R07 | Fonctionnement partiel hors connexion (§6, §11) | Repli sur cache avec date de dernière actualisation après fermeture complète | Scénario sans réseau | Non |
 | R08 | États chargement, données et erreur (§7, §11) | Riverpod/AsyncValue et états métier explicites | Démo des différents états | Non |
 | R09 | Visualisation graphique significative (§11) | Courbe historique et répartition du portefeuille | Démonstration | Non |
 | R10 | Au moins 2 calculs métier (§8, §11) | Valeur, gain/perte, performance et répartition | Tests unitaires | Oui pour les formules ; affichage non fait |
 | R11 | Au moins 3 animations, dont 2 codées (§10, §11) | Pack, favori, valeur de portefeuille ; comportements contrôlés | Code + démonstration | Non |
-| R12 | Tests unitaires de logique métier (§13, §11) | Calculateurs financiers et cas limites | Résultat de `flutter test` | Oui pour les calculs ; persistance non testée |
-| R13 | Séparation UI, état, métier, distant et local (§12) | Architecture en couches et repositories | Schéma + explication + code | Non |
+| R12 | Tests unitaires de logique métier (§13, §11) | Calculateurs financiers et cas limites | Résultat de `flutter test` | Oui pour les calculs et pour la relecture SQLite des achats et favoris |
+| R13 | Séparation UI, état, métier, distant et local (§12) | Architecture en couches et repositories | Schéma + explication + code | Partiel : SQL limité à `data/local`, repositories séparés du domaine et des Widgets ; API et état Riverpod des données absents |
 
-Au 23 septembre 2026, R10 et R12 sont couverts pour les formules du domaine et leurs tests. L'écran Portefeuille ne les affiche pas. R01 reste non réalisé : les trois écrans sont encore provisoires. `domain/` contient les calculs, mais ni repository, ni SQLite, ni API : R13 n'est pas réalisée.
+Au 23 septembre 2026, R10 est couvert pour les formules, sans affichage. R12 couvre aussi la conservation des achats et des favoris dans un fichier SQLite. R05 ne couvre ni la collection, ni les gemmes, ni le redémarrage de l'application. R01 reste non réalisé : les trois écrans sont encore provisoires. R13 est commencé par la séparation SQL / repository / domaine, sans source distante ni provider de données.
 
 ## Exigences transversales
 
@@ -44,7 +44,7 @@ Au 23 septembre 2026, R10 et R12 sont couverts pour les formules du domaine et l
 | Données quotidiennes/hebdomadaires acceptables | **[IMPOSÉ — SUJET]** | Le temps réel n'est pas requis. |
 | Actions/entreprises réelles | **[DÉCIDÉ — FINDECK]** | Les ETF et cryptomonnaies ne font pas partie du périmètre initial. |
 | Twelve Data | **[DÉCIDÉ — FINDECK]** | Faisabilité actuelle à revalider avant intégration. |
-| Riverpod, GoRouter, Dio, sqflite, SharedPreferences, fl_chart | **[DÉCIDÉ — FINDECK]** | Riverpod 2.6.1 et GoRouter 14.2.3 sont épinglés. Les autres packages ne sont pas encore des dépendances. |
+| Riverpod, GoRouter, Dio, sqflite, SharedPreferences, fl_chart | **[DÉCIDÉ — FINDECK]** | Riverpod 2.6.1, GoRouter 14.2.3 et sqflite 2.3.2 sont épinglés. Dio, SharedPreferences et fl_chart ne sont pas encore des dépendances. |
 | Raretés Common/Rare/Epic/Legendary | **[DÉCIDÉ — FINDECK]** | Les probabilités et règles d'affectation restent ouvertes. |
 | Nombre, contenu et prix des packs | **[À DÉCIDER]** | Les exemples précédents ne sont pas des spécifications. |
 | Gains quotidiens, missions ou récompenses | **[À DÉCIDER]** | Aucune mécanique n'est validée ; ne pas implémenter. |

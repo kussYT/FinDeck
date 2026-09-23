@@ -37,7 +37,7 @@ Widget
 
 ## Stack retenue
 
-Flutter 3.16.4 et Dart 3.2.3. Le socle utilise Riverpod 2.6.1 et GoRouter 14.2.3, sans génération de code. Dio, SQLite avec sqflite, SharedPreferences et fl_chart restent prévus, mais ne sont ajoutés qu'avec la phase qui les utilise. `flutter_lints` 2.0.3 sert à l'analyse statique.
+Flutter 3.16.4 et Dart 3.2.3. Le socle utilise Riverpod 2.6.1 et GoRouter 14.2.3, sans génération de code. SQLite passe par `sqflite` 2.3.2 pour les achats fictifs et les favoris. Dio, SharedPreferences et fl_chart restent prévus, mais ne sont ajoutés qu'avec la phase qui les utilise. `flutter_lints` 2.0.3 sert à l'analyse statique.
 
 ## Décisions à valider
 

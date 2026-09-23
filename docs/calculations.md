@@ -6,7 +6,7 @@
 
 ## Réalisation au 23 septembre 2026
 
-Seule la partie calculs de la phase 2 est réalisée. `PortfolioCalculator` applique les formules. La persistance, l'API et l'écran Portefeuille ne les utilisent pas encore.
+Les formules sont réalisées dans `PortfolioCalculator`. Il ne lit ni SQLite, ni l'API, ni l'écran. Un achat persisté ne l'atteint qu'après relecture et passage par `preparePurchaseValuation`. Les résultats calculés ne sont pas réécrits en base.
 
 Le type numérique retenu est `double`. Il évite une dépendance supplémentaire et suffit aux quatre opérations des formules. Sa limite est le format binaire IEEE 754 : certains décimaux, comme 0,1 + 0,2, ne sont pas exacts. Les calculs ne rattrapent pas cet écart par un arrondi intermédiaire. L'arrondi d'affichage, en devise ou en pourcentage, reste hors du domaine et **[À DÉCIDER]** au moment des écrans.
 

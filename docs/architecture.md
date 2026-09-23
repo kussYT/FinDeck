@@ -97,6 +97,6 @@ Une erreur réseau n'efface pas un cache valide. Si une donnée locale exploitab
 
 ## Points encore ouverts
 
-**[DÉCIDÉ — FINDECK]** Le socle et les calculs n'utilisent pas de génération de code. Les modèles de valorisation sont des classes immuables écrites à la main. Aucun contrat de repository n'est ajouté tant que la persistance et l'API n'existent pas.
+**[DÉCIDÉ — FINDECK]** Le socle, les calculs et la persistance n'utilisent pas de génération de code. Les modèles sont des classes écrites à la main. `PortfolioPurchaseRepository` et `FavoriteRepository` existent pour les données utilisateur. Ils ne choisissent pas encore entre une API et un cache : cette source distante n'existe pas. Les Widgets et le domaine n'exécutent pas de SQL.
 
 **[À DÉCIDER]** La génération de code et une bibliothèque de modèles immuables pourront être reconsidérées si les modèles s'étoffent. Ces choix ne doivent pas modifier les responsabilités ci-dessus.

@@ -41,11 +41,20 @@
 
 ## Persistance
 
-- favori conservé après recréation du repository ;
-- opération fictive conservée après redémarrage simulé ;
-- clé unique d'historique empêche les doublons ;
-- ouverture de pack : débit et cartes réussissent ensemble ou échouent ensemble ;
-- migration conserve les données de la version précédente.
+Réalisé pour les achats fictifs et les favoris, sur un fichier SQLite réel :
+
+- création de la base et version initiale ;
+- relecture fidèle d'un achat, puis de plusieurs achats indépendants ;
+- ajout, retrait et absence de doublon d'un favori ;
+- refus d'une donnée invalide sans écriture ;
+- clé étrangère : échec complet de la transaction et refus de supprimer une référence utilisée ;
+- fermeture, puis réouverture du même fichier avec de nouvelles instances ;
+- migration inconnue refusée sans suppression du fichier ;
+- version cible inconnue refusée avant création du fichier ;
+- base future, préparée hors de `AppDatabase`, refusée sans changer ses données ni son numéro ;
+- création et réouverture normales en version 1.
+
+Encore prévus : clé unique d'historique de marché, ouverture atomique d'un pack, et scénario hors ligne de l'application.
 
 ## Qualité des tests
 
@@ -65,9 +74,10 @@ Avant livraison : analyse statique sans erreur, formatage appliqué, tests verts
 Vérifiées le 23 septembre 2026 avec Flutter 3.16.4 et Dart 3.2.3 :
 
 ```text
-dart format --output=none --set-exit-if-changed lib test
+dart format --output=none --set-exit-if-changed lib test integration_test
 flutter analyze
 flutter test
+flutter test integration_test/sqlite_android_probe_test.dart -d <id Android>
 ```
 
 Lancement Android :
@@ -78,4 +88,4 @@ flutter devices
 flutter run -d <id Android>
 ```
 
-`flutter test` couvre le démarrage, la navigation et les cas limites de `PortfolioCalculator`, dont l'exemple 2 × 200 au cours de 227. Les tests de repository, de persistance et le scénario hors ligne restent à écrire.
+`flutter test` couvre le démarrage, la navigation, les cas limites de `PortfolioCalculator` et la conservation des achats et favoris dans un fichier temporaire. Le moteur SQLite de ces tests est `sqflite_common_ffi`, en dépendance de développement seulement. Le test `integration_test/sqlite_android_probe_test.dart` vérifie sqflite sur Android avec un fichier sonde distinct. Le 23 septembre 2026, il a réussi sur l'émulateur `emulator-5554`. Il ne prouve pas le mode hors ligne de l'application.

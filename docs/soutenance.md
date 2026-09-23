@@ -4,17 +4,21 @@
 
 ## État vérifié
 
-Au 23 septembre 2026, deux parties sont réalisées.
+Au 23 septembre 2026, trois parties sont réalisées, sans que la phase 2 ni le mode hors ligne soient terminés.
 
 Le socle a été lancé sur l'émulateur Android Pixel 3a API 34 : `ProviderScope`, GoRouter, thème provisoire et trois écrans qui annoncent que leur contenu métier n'est pas affiché. `flutter doctor` signale l'absence des cmdline-tools Android ; cela n'a pas bloqué l'émulateur.
 
-La partie calculs de la phase 2 est réalisée dans `PortfolioCalculator`. La persistance SQLite, l'API, les repositories, les cartes, les packs et les gemmes ne le sont pas. L'écran Portefeuille n'affiche aucun résultat.
+La partie calculs de la phase 2 est réalisée dans `PortfolioCalculator`. L'écran Portefeuille n'affiche aucun résultat.
+
+La persistance SQLite des achats fictifs et des favoris est réalisée dans `data/`. Les repositories valident puis écrivent ; les tests ferment et rouvrent un vrai fichier. L'application ne les appelle pas encore. L'API, le cache, les cartes, les packs et les gemmes ne sont pas réalisés.
 
 ### Qu'est-ce qui est réellement codé aujourd'hui ?
 
 `appRouterProvider` expose le routeur. Les pages restent provisoires. Le thème fixe une palette sobre, une échelle typographique et des espacements de 4, 8, 16, 24 et 32.
 
 `Purchase` valide un achat. `PortfolioCalculator` calcule le montant investi, la valeur, le gain, la performance et la répartition avec des `double`, sans arrondi intermédiaire. Un résultat absent est un `UnavailableNumber`, jamais un zéro inventé. Les devises forment des sous-totaux séparés.
+
+`PortfolioPurchaseRepository` et `FavoriteRepository` écrivent dans `findeck.db`, version 1. Un achat relu redevient un `Purchase` par `preparePurchaseValuation`, sauf si deux instruments distincts partageraient le même symbole et la même devise.
 
 ## Présentation en 60 secondes
 
@@ -130,7 +134,11 @@ Non. La catégorie décrit l'entreprise et la rareté appartient au jeu. Aucune 
 
 ### Pourquoi garder les opérations plutôt que seulement les positions ?
 
-Les opérations constituent une trace persistante des achats fictifs. Les positions peuvent être agrégées à partir d'elles, ce qui évite de maintenir deux sources de vérité contradictoires.
+Les opérations constituent une trace persistante des achats fictifs. Les positions peuvent être agrégées à partir d'elles, ce qui évite de maintenir deux sources de vérité contradictoires. Le code actuel suit déjà cette règle : SQLite garde la quantité, le prix, la devise et la date, pas la valeur ni la performance.
+
+### Comment un achat validé rejoint-il le calculateur ?
+
+`Purchase.validate` refuse une quantité ou un prix non fini ou non strictement positif. Le repository n'écrit qu'après cette validation, dans une transaction qui crée ou réutilise la référence d'actif puis insère l'achat. À la relecture, `preparePurchaseValuation` reconstruit des `Purchase`. Si deux identifiants locaux distincts ont le même symbole et la même devise, il refuse l'ensemble au lieu de les fusionner. Sinon `PortfolioCalculator` applique les formules. Ce parcours est testé sur fichier, mais aucun écran ne le déclenche.
 
 ### Comment sécuriser l'ouverture d'un pack ?
 
@@ -176,7 +184,7 @@ L'effet visuel peut être interrompu ou rejoué, tandis que le débit et les car
 
 ### Que testez-vous en priorité ?
 
-Les calculs purs et leurs cas limites : portefeuille vide, gain négatif, division par zéro et cours manquant. Ensuite les décisions du repository avec des fausses sources : cache frais, absent, ancien, API en succès ou erreur.
+Les calculs purs et leurs cas limites : portefeuille vide, gain négatif, division par zéro, cours manquant, somme infinie et listes non modifiables. La conservation des achats et des favoris est aussi testée sur un vrai fichier SQLite. Les décisions de cache, avec des sources substituées, restent à écrire.
 
 ### Comment tester le réseau sans dépendre de l'API réelle ?
 
@@ -184,7 +192,7 @@ Le repository reçoit une source distante substituable. Les tests utilisent une 
 
 ### Quel test prouve le mode hors ligne ?
 
-Un test du repository prouve le repli sur un cache ancien, mais il faut aussi une démonstration manuelle après fermeture complète et désactivation du réseau pour vérifier la persistance réelle.
+Aucun test ne prouve encore le mode hors ligne de l'application. La sonde Android et les tests de fichier prouvent seulement que SQLite conserve un achat et un favori après fermeture de la base. Il manque le cache, l'écran et un redémarrage complet sans réseau.
 
 ## Questions pièges et réponses honnêtes
 

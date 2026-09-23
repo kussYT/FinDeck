@@ -6,7 +6,9 @@
 
 La branche principale est `main`. Le dépôt distant `origin` pointe vers le dépôt public [kussYT/FinDeck](https://github.com/kussYT/FinDeck). L'identité d'auteur provient de la configuration globale déjà présente. Aucun tag de livraison n'est posé.
 
-Le cadrage documentaire et le socle Flutter sont deux commits distincts. Le socle a été vérifié par le formatage, l'analyse statique, les tests de démarrage et de navigation, puis un lancement sur l'émulateur Android Pixel 3a API 34. `flutter doctor` signale toutefois l'absence des cmdline-tools Android et un statut de licences inconnu ; cet avertissement n'a pas empêché ce lancement. Aucun appareil physique n'était connecté.
+Le cadrage documentaire, le socle Flutter et les calculs de portefeuille sont des commits distincts. Le socle a été vérifié par le formatage, l'analyse statique, les tests de démarrage et de navigation, puis un lancement sur l'émulateur Android Pixel 3a API 34. `flutter doctor` signale toutefois l'absence des cmdline-tools Android et un statut de licences inconnu ; cet avertissement n'a pas empêché ce lancement. Aucun appareil physique n'était connecté.
+
+Les achats fictifs et les favoris ont ensuite une base SQLite versionnée, testée par relecture de fichier. Cette étape n'est pas une version publiée de l'application : les écrans ne l'utilisent pas encore.
 
 ## Jalons de publication
 

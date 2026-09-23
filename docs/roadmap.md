@@ -32,7 +32,7 @@ La roadmap ordonne le travail sans prétendre que les phases sont déjà réalis
 
 **Sortie :** données utilisateur conservées après redémarrage.
 
-**État au 23 septembre 2026 :** seule la partie calculs est réalisée. Les formules et leurs cas limites sont testés. SQLite, les DAO et la conservation après redémarrage restent à faire. La sortie de la phase n'est donc pas atteinte.
+**État au 23 septembre 2026 :** les calculs sont réalisés. La base SQLite version 1 enregistre et relit les achats fictifs et les favoris ; ces tests ferment puis rouvrent un vrai fichier. La collection, les gemmes et le cache ne sont pas persistés. L'application ne branche pas encore cette base sur les écrans, donc un redémarrage du produit ne conserve encore aucune saisie. La sortie de la phase n'est pas atteinte. La phase 2 n'est pas terminée, et le mode hors ligne non plus.
 
 ## Phase 3 — Marché, API et cache
 

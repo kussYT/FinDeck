@@ -4,7 +4,7 @@
 
 ## État réel
 
-Au 23 septembre 2026, le socle et les calculs existent. `core/`, `data/` et les fonctionnalités encore vides ne sont pas créés.
+Au 23 septembre 2026, le socle, les calculs et la persistance des achats et favoris existent. `core/`, le cache, l'API et les fonctionnalités encore vides ne sont pas créés. Les DAO sont des fichiers de `data/local/`, pas encore un sous-dossier `dao/`.
 
 ```text
 lib/
@@ -15,21 +15,42 @@ lib/
 │   ├── router.dart
 │   ├── shell.dart
 │   └── theme.dart
+├── data/
+│   ├── local/
+│   │   ├── app_database.dart
+│   │   ├── favorite_dao.dart
+│   │   ├── local_id.dart
+│   │   ├── portfolio_purchase_dao.dart
+│   │   ├── schema_migrator.dart
+│   │   └── user_asset_dao.dart
+│   └── repositories/
+│       ├── favorite_repository.dart
+│       └── portfolio_purchase_repository.dart
 ├── domain/
+│   ├── market_code.dart
 │   ├── models/
+│   │   ├── asset_reference.dart
 │   │   ├── calculated_number.dart
+│   │   ├── favorite.dart
 │   │   ├── market_quote.dart
+│   │   ├── portfolio_purchase.dart
 │   │   ├── portfolio_valuation.dart
 │   │   └── purchase.dart
 │   └── services/
-│       └── portfolio_calculator.dart
+│       ├── portfolio_calculator.dart
+│       └── purchase_valuation_input.dart
 └── features/
     ├── collection/collection_page.dart
     ├── market/market_page.dart
     └── portfolio/portfolio_page.dart
 test/
 ├── app/navigation_test.dart
-└── domain/portfolio_calculator_test.dart
+├── data/user_data_persistence_test.dart
+└── domain/
+    ├── portfolio_calculator_test.dart
+    └── purchase_valuation_input_test.dart
+integration_test/
+└── sqlite_android_probe_test.dart
 ```
 
 ## Cible

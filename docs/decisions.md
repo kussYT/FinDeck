@@ -25,10 +25,10 @@ Chaque décision indique son statut. « Acceptée » signifie retenue pour la ci
 
 ## ADR-004 — SQLite et SharedPreferences
 
-- **Statut :** Acceptée **[DÉCIDÉ — FINDECK]**
+- **Statut :** Acceptée **[DÉCIDÉ — FINDECK]** ; partiellement implémentée pour les données utilisateur
 - **Décision :** `sqflite` pour métier/cache ; SharedPreferences seulement pour préférences simples.
 - **Pourquoi :** relations, requêtes, transactions atomiques et persistance après redémarrage.
-- **Conséquence :** migrations à gérer explicitement.
+- **Conséquence :** migrations à gérer explicitement. `sqflite` 2.3.2 stocke aujourd'hui les achats fictifs et les favoris. Le cache et SharedPreferences ne sont pas des dépendances utilisées.
 
 ## ADR-005 — Twelve Data derrière une abstraction locale
 
@@ -98,7 +98,7 @@ Chaque décision indique son statut. « Acceptée » signifie retenue pour la ci
 - **Statut :** Acceptée **[DÉCIDÉ — FINDECK]**
 - **Décision :** Flutter 3.16.4, Dart 3.2.3, contrainte SDK `>=3.2.3 <4.0.0`, `flutter_riverpod` 2.6.1, `go_router` 14.2.3 et `flutter_lints` 2.0.3. L'identifiant d'application est `fr.uphf.findeck`. Le nom affiché est FinDeck.
 - **Pourquoi :** ce sont les versions les plus récentes compatibles avec le SDK installé. Les majeures suivantes de Riverpod, GoRouter et des lints ne le sont pas.
-- **Conséquence :** Dio, sqflite, SharedPreferences et fl_chart ne sont pas des dépendances. La valeur `1.0.0+1` du pubspec vient du modèle Flutter et n'est pas un numéro de version publié.
+- **Conséquence :** `sqflite` 2.3.2 est une dépendance de l'application. `sqflite_common_ffi` 2.3.2+1 est limité aux tests sur ordinateur. Dio, SharedPreferences et fl_chart ne sont pas des dépendances. La valeur `1.0.0+1` du pubspec vient du modèle Flutter et n'est pas un numéro de version publié.
 
 ## ADR-015 — `double` et résultat non calculable
 
@@ -115,6 +115,22 @@ Chaque décision indique son statut. « Acceptée » signifie retenue pour la ci
 - **Décision :** une devise produit son propre sous-total. Des devises différentes ne sont pas additionnées et aucun taux de change n'est appliqué. Une position sans cours rend le sous-total de sa devise incomplet.
 - **Pourquoi :** une somme d'euros et de dollars n'a pas de sens, et une somme partielle ne doit pas être présentée comme un total.
 - **Conséquence :** le futur écran devra montrer chaque devise séparément. La fraîcheur des cours reste à décider.
+
+## ADR-017 — Identité locale d'un instrument
+
+- **Statut :** Implémentée pour les favoris et les achats **[DÉCIDÉ — FINDECK]**
+- **Contexte :** un symbole peut exister sur plusieurs places. Le calculateur, lui, ne connaît que le symbole et la devise.
+- **Décision :** chaque instrument suivi reçoit un identifiant local. L'unicité métier est le couple symbole et place. Une place vide signifie qu'elle est inconnue, pas qu'une place a été inventée. Aucune métadonnée de marché absente n'est complétée.
+- **Pourquoi :** deux instruments différents ne doivent pas être confondus, et un symbole seul ne suffit pas.
+- **Conséquence :** `preparePurchaseValuation` refuse d'envoyer au calculateur des identifiants locaux distincts qui partageraient le même symbole et la même devise. Plusieurs achats du même identifiant restent agrégeables. Le futur cache pourra choisir une autre clé.
+
+## ADR-018 — Base utilisateur SQLite version 1
+
+- **Statut :** Implémentée **[DÉCIDÉ — FINDECK]**
+- **Contexte :** les achats fictifs et les favoris devaient survivre à la fermeture du fichier, sans cache ni données de démonstration.
+- **Décision :** le fichier normal est `findeck.db`, version 1, dans le répertoire persistant de sqflite. Les tables sont `user_asset`, `favorite` et `portfolio_purchase`. Les clés étrangères sont activées, sans suppression en cascade. Les dates sont des chaînes ISO 8601 UTC. Une écriture liée passe par une transaction, après la validation de `Purchase` pour un achat. Une version cible non prise en charge, une base plus récente et une migration inconnue sont refusées sans supprimer ni réécrire le fichier.
+- **Pourquoi :** séparer les données utilisateur du futur cache, éviter une seconde source de vérité pour les résultats calculés, et rendre une évolution de schéma explicite.
+- **Conséquence :** l'application ne crée pas encore cette base au démarrage. La collection, les gemmes et le cache restent hors de ce schéma. Les tests sur ordinateur passent par `sqflite_common_ffi`, uniquement en dépendance de développement, et écrivent un vrai fichier temporaire.
 
 ## Décisions en attente
 

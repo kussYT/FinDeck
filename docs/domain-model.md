@@ -108,15 +108,20 @@ classDiagram
 - Une position est dérivée des opérations ; elle ne doit pas contredire leur somme.
 - Les calculs utilisent la devise de l'actif telle qu'affichée. Aucune conversion de devise n'est prévue dans le périmètre actuel.
 
-## Réalisé pour les calculs
+## Réalisé pour les calculs et les achats persistés
 
-Au 23 septembre 2026, seuls les modèles utiles aux formules existent. Ce ne sont pas encore les entités persistées.
+Au 23 septembre 2026, les formules et la persistance des achats fictifs et des favoris existent. Les cartes, les packs, les gemmes, le cache et l'écran Portefeuille ne les utilisent pas.
 
-- `Purchase` : symbole, quantité, prix unitaire et devise d'un achat fictif valide. Le symbole et la devise sont normalisés en majuscules. L'identifiant et la date de `PortfolioTransaction` ne sont pas encore modélisés.
+- `Purchase` : symbole, quantité, prix unitaire et devise d'un achat fictif valide. Le symbole et la devise sont normalisés en majuscules. Cette valeur n'a ni identifiant, ni place, ni date : elle sert uniquement au calculateur.
+- `AssetReference` : identifiant local, symbole et place. Une place vide signifie qu'elle n'est pas connue. Aucun nom, pays ou catégorie n'est inventé.
+- `PortfolioPurchase` : identifiant, référence d'actif, quantité, prix, devise et date UTC. Ses nombres viennent d'un `Purchase` déjà validé.
+- `Favorite` : référence d'actif et date UTC de création.
 - `MarketQuote` : cours éventuellement absent pour un symbole et une devise.
-- `PositionValuation`, `CurrencyBook` et `PortfolioValuation` : résultats calculés, pas des données saisies. Les listes de positions, de sous-totaux et de poids sont copiées et non modifiables.
+- `PositionValuation`, `CurrencyBook` et `PortfolioValuation` : résultats calculés, pas des données saisies. Les listes de positions, de sous-totaux et de poids sont copiées et non modifiables. Ces résultats ne sont pas écrits dans SQLite.
 
-`Asset`, `PricePoint`, les cartes, les packs, les gemmes et le portefeuille persisté ne sont pas implémentés. Une position affichée ne contredit pas les achats, parce qu'elle est uniquement dérivée d'eux.
+`preparePurchaseValuation` relie les achats persistés au calculateur. Le calculateur ne connaît que le symbole et la devise. Si deux identifiants locaux distincts partagent ce couple, la préparation est refusée entièrement : les instruments ne sont pas fusionnés. Plusieurs achats du même identifiant local restent agrégeables.
+
+`Asset` complet, `PricePoint`, les cartes, les packs et les gemmes ne sont pas implémentés. Une position affichée ne contredit pas les achats, parce qu'elle est uniquement dérivée d'eux.
 
 Le type numérique des calculs est `double`. L'arrondi d'affichage reste ouvert.
 
