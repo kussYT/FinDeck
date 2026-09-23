@@ -62,3 +62,7 @@ Un rebuild réexécute `build`, pas la persistance ni les appels réseau par dé
 ## Cycle de vie
 
 **[À DÉCIDER]** L'emploi de `autoDispose`, de familles de providers et de conservation temporaire sera décidé provider par provider. Les données durables restent dans SQLite ; conserver un provider en mémoire ne remplace jamais la persistance.
+
+## Réalisé dans le socle
+
+Seul `appRouterProvider` existe. Il expose le routeur de l'application et le libère à sa disposition. Aucun état asynchrone de catalogue, de collection ou de portefeuille n'est publié.

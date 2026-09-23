@@ -2,9 +2,11 @@
 
 **[DÉCIDÉ — FINDECK]** Le projet sera développé et publié progressivement sur GitHub. Chaque étape doit correspondre à un résultat identifiable, vérifié et explicable.
 
-## État initial
+## État au 23 septembre 2026
 
-À la date de cette revue, le dossier contient la documentation et les fichiers de l'environnement de développement. Git n'est pas encore initialisé et aucun dépôt GitHub distant n'est configuré. Le code Flutter reste à créer.
+Git est initialisé localement sur la branche `master`, créée par défaut. L'identité d'auteur provient de la configuration globale déjà présente. Aucun dépôt distant n'est configuré et aucun tag n'est posé.
+
+Le cadrage documentaire et le socle Flutter sont deux commits distincts. Le socle a été vérifié par le formatage, l'analyse statique, les tests de démarrage et de navigation, puis un lancement sur l'émulateur Android Pixel 3a API 34. `flutter doctor` signale toutefois l'absence des cmdline-tools Android et un statut de licences inconnu ; cet avertissement n'a pas empêché ce lancement. Aucun appareil physique n'était connecté.
 
 ## Jalons de publication
 
@@ -52,4 +54,4 @@ Les règles des packs ne bloquent pas la navigation ; elles doivent être valid�
 
 Avant la première publication, préciser le dépôt cible et sa visibilité. Utiliser l'identité Git de l'auteur du travail et conserver les fichiers de configuration locale, secrets et sorties de compilation hors du suivi. Ne pas créer de dépôt distant ou choisir sa visibilité implicitement.
 
-**[À DÉCIDER]** URL du dépôt, visibilité, identité Git si elle n'est pas configurée, convention de branches et numérotation des versions. Pour un travail individuel, une branche principale stable et des branches courtes par changement suffisent ; une organisation plus complexe doit répondre à un besoin réel.
+**[À DÉCIDER]** URL du dépôt, visibilité, convention de branches et numérotation des versions. L'identité Git globale est déjà configurée. La valeur `1.0.0+1` de `pubspec.yaml` est celle générée par Flutter ; elle n'est pas une version publiée. Pour un travail individuel, une branche principale stable et des branches courtes par changement suffisent ; une organisation plus complexe doit répondre à un besoin réel.

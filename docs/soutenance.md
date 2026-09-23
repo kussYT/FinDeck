@@ -1,6 +1,20 @@
 # Soutenance — fiche de révision
 
-> Ce document décrit l'architecture cible avant développement. Après chaque phase, remplacer les formulations futures par la réalité vérifiée et ajouter les difficultés effectivement rencontrées.
+> Les réponses ci-dessous décrivent encore la cible, sauf mention contraire. Ne pas les présenter comme du code déjà écrit.
+
+## État vérifié après le socle
+
+Au 23 septembre 2026, seul le socle est réalisé et lancé sur l'émulateur Android Pixel 3a API 34 :
+
+- démarrage avec `ProviderScope`, GoRouter et un thème provisoire ;
+- trois écrans qui annoncent l'absence de leur contenu ;
+- tests de démarrage et de navigation.
+
+Il n'existe ni repository, ni API, ni SQLite, ni calcul, ni donnée de marché. La difficulté d'environnement constatée est l'avertissement `flutter doctor` sur les cmdline-tools Android : il n'a pas bloqué l'émulateur.
+
+### Qu'est-ce qui est réellement codé aujourd'hui ?
+
+`appRouterProvider` expose le routeur. Les pages Marché, Collection et Portefeuille affichent un texte provisoire. Le thème fixe une palette sobre, une échelle typographique et des espacements de 4, 8, 16, 24 et 32.
 
 ## Présentation en 60 secondes
 

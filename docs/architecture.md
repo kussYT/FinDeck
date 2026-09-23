@@ -97,4 +97,6 @@ Une erreur réseau n'efface pas un cache valide. Si une donnée locale exploitab
 
 ## Points encore ouverts
 
-**[À DÉCIDER]** L'usage ou non de génération de code Riverpod/JSON, la forme exacte des contrats de repository et la bibliothèque éventuelle de modèles immuables seront choisis au moment du scaffold. Aucun de ces choix ne doit modifier les responsabilités ci-dessus.
+**[DÉCIDÉ — FINDECK]** Le socle n'utilise pas de génération de code. Riverpod est écrit à la main. Aucun contrat de repository ni bibliothèque de modèles immuables n'est ajouté tant qu'aucun modèle n'existe.
+
+**[À DÉCIDER]** La génération de code et les modèles immuables pourront être reconsidérés lorsque le domaine sera créé. Ces choix ne doivent pas modifier les responsabilités ci-dessus.

@@ -21,6 +21,8 @@ La roadmap ordonne le travail sans prétendre que les phases sont déjà réalis
 
 **Sortie :** application lançable, navigation minimale, aucun métier inventé.
 
+**État au 23 septembre 2026 :** sortie atteinte. Les vérifications et les limites sont notées dans [versioning.md](versioning.md), [navigation.md](navigation.md) et [testing.md](testing.md).
+
 ## Phase 2 — Domaine et persistance
 
 - créer les modèles validés et services de calcul ;

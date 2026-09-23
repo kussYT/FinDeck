@@ -1,6 +1,29 @@
 # Arborescence cible
 
-**[DÉCIDÉ — FINDECK]** Cette arborescence décrit la cible de départ. Elle n'existe pas encore et ne doit pas être confondue avec l'état actuel du dossier.
+**[DÉCIDÉ — FINDECK]** Cette arborescence reste la cible. Elle ne doit pas être confondue avec les fichiers réellement créés.
+
+## État réel après la phase 1
+
+Au 23 septembre 2026, seuls les fichiers utiles au socle existent. `core/`, `domain/`, `data/` et les fonctionnalités encore vides ne sont pas créés, conformément à la règle qui interdit les dossiers vides.
+
+```text
+lib/
+├── main.dart
+├── app/
+│   ├── app.dart
+│   ├── provisional_section_page.dart
+│   ├── router.dart
+│   ├── shell.dart
+│   └── theme.dart
+└── features/
+    ├── collection/collection_page.dart
+    ├── market/market_page.dart
+    └── portfolio/portfolio_page.dart
+test/
+└── app/navigation_test.dart
+```
+
+## Cible
 
 ```text
 FinDeck/

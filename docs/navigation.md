@@ -50,6 +50,12 @@ Règles minimales :
 
 Les routes restent accessibles sans réseau. Un écran dont les données n'ont jamais été mises en cache affiche un état d'erreur explicite ; il ne redirige pas silencieusement. Les écrans locaux — collection, favoris et portefeuille — restent consultables.
 
-## À décider
+## Choix provisoires du socle
 
-**[À DÉCIDER]** Le composant de navigation principal exact (barre inférieure ou autre), les chemins de routes, l'écran initial visuel et l'éventuel regroupement Favoris/Marché seront fixés avec les maquettes. Aucun écran Profil ou Paramètres avancés n'est engagé dans le MVP.
+**[DÉCIDÉ — FINDECK]** En attendant les maquettes, le socle utilise :
+
+- une barre inférieure Material 3 ;
+- les routes `/market`, `/collection` et `/portfolio` ;
+- `/market` comme écran initial.
+
+Ces trois pages annoncent explicitement que leur contenu n'est pas développé. Les routes enfants — fiche, favoris, packs, révélation et formulaire — ne sont pas créées. Aucun écran Profil ou Paramètres avancés n'est engagé. Le regroupement Favoris/Marché reste ouvert.

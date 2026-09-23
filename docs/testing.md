@@ -58,4 +58,24 @@
 
 ## Critère de fin
 
-Avant livraison : analyse statique sans erreur, formatage appliqué, tests verts et scénario offline manuel exécuté après fermeture complète. Les commandes exactes seront ajoutées lorsque le projet Flutter existera.
+Avant livraison : analyse statique sans erreur, formatage appliqué, tests verts et scénario offline manuel exécuté après fermeture complète.
+
+## Commandes du socle
+
+Vérifiées le 23 septembre 2026 avec Flutter 3.16.4 et Dart 3.2.3 :
+
+```text
+dart format --output=none --set-exit-if-changed lib test
+flutter analyze
+flutter test
+```
+
+Lancement Android :
+
+```text
+flutter emulators --launch Pixel_3a_API_34_extension_level_7_x86_64
+flutter devices
+flutter run -d <id Android>
+```
+
+Les tests actuels couvrent le démarrage sur Marché et la navigation vers Collection puis Portefeuille. Ils ne couvrent aucun calcul, repository ou scénario hors ligne.

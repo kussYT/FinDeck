@@ -69,7 +69,36 @@ Chaque décision indique son statut. « Acceptée » signifie retenue pour la ci
 
 - **Statut :** Acceptée **[DÉCIDÉ — FINDECK]**
 - **Décision :** GoRouter pour les routes, Dio pour HTTP, fl_chart pour les graphiques.
-- **Conséquence :** versions et API exactes seront figées au scaffold, sans ajouter d'autres packages équivalents sans justification.
+- **Conséquence :** GoRouter 14.2.3 est épinglé avec le socle. Dio et fl_chart seront épinglés lors de leur phase, sans ajouter d'autres packages équivalents sans justification.
+
+## ADR-011 — Socle sans génération de code
+
+- **Statut :** Acceptée pour le socle **[DÉCIDÉ — FINDECK]**
+- **Contexte :** l'usage d'un générateur Riverpod ou JSON devait être tranché au scaffold.
+- **Décision :** providers écrits à la main, sans `riverpod_generator`, Freezed ni `json_serializable`.
+- **Pourquoi :** ces outils n'ont aucun usage tant qu'il n'y a ni modèle ni JSON.
+- **Conséquence :** le choix pourra être rouvert avant la création du domaine, sans changer les responsabilités.
+
+## ADR-012 — Shell de navigation provisoire
+
+- **Statut :** Acceptée pour le socle, révisable avec les maquettes **[DÉCIDÉ — FINDECK]**
+- **Décision :** barre inférieure, routes `/market`, `/collection`, `/portfolio`, départ sur `/market`.
+- **Pourquoi :** les trois espaces étaient déjà retenus et le socle devait permettre de passer de l'un à l'autre.
+- **Conséquence :** les routes enfants ne sont pas anticipées. Le regroupement Favoris/Marché reste ouvert.
+
+## ADR-013 — Français pour les textes du socle
+
+- **Statut :** Acceptée pour les textes existants **[DÉCIDÉ — FINDECK]**
+- **Décision :** les trois écrans provisoires sont rédigés en français. Les identifiants techniques restent en anglais.
+- **Pourquoi :** la documentation et la demande de réalisation sont en français, et ces écrans devaient expliquer leur état.
+- **Conséquence :** la langue des écrans métier reste à confirmer avant leur rédaction.
+
+## ADR-014 — Versions et identifiant du socle
+
+- **Statut :** Acceptée **[DÉCIDÉ — FINDECK]**
+- **Décision :** Flutter 3.16.4, Dart 3.2.3, contrainte SDK `>=3.2.3 <4.0.0`, `flutter_riverpod` 2.6.1, `go_router` 14.2.3 et `flutter_lints` 2.0.3. L'identifiant d'application est `fr.uphf.findeck`. Le nom affiché est FinDeck.
+- **Pourquoi :** ce sont les versions les plus récentes compatibles avec le SDK installé. Les majeures suivantes de Riverpod, GoRouter et des lints ne le sont pas.
+- **Conséquence :** Dio, sqflite, SharedPreferences et fl_chart ne sont pas des dépendances. La valeur `1.0.0+1` du pubspec vient du modèle Flutter et n'est pas un numéro de version publié.
 
 ## Décisions en attente
 
@@ -77,4 +106,6 @@ Chaque décision indique son statut. « Acceptée » signifie retenue pour la ci
 - ADR futur : barème, probabilités et hasard des packs ;
 - ADR futur : solde/acquisition des gemmes ;
 - ADR futur : seuils de fraîcheur et rétention ;
-- ADR futur : stratégie de code generation et modèles immuables.
+- ADR futur : génération de code et modèles immuables, à reconsidérer avec le domaine ;
+- ADR futur : langue définitive des écrans métier, charte graphique finale, maquettes de navigation ;
+- URL du dépôt, visibilité, convention de branches et numérotation des versions.

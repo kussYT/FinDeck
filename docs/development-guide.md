@@ -37,15 +37,19 @@ Widget
 
 ## Stack retenue
 
-Flutter/Dart, Riverpod, GoRouter, Dio, SQLite avec sqflite, SharedPreferences pour petites préférences, fl_chart et flutter_test. Les versions et éventuels générateurs de code ne sont pas encore décidés.
+Flutter 3.16.4 et Dart 3.2.3. Le socle utilise Riverpod 2.6.1 et GoRouter 14.2.3, sans génération de code. Dio, SQLite avec sqflite, SharedPreferences et fl_chart restent prévus, mais ne sont ajoutés qu'avec la phase qui les utilise. `flutter_lints` 2.0.3 sert à l'analyse statique.
 
 ## Décisions à valider
 
-Les éléments suivants demandent une décision explicite avant la fonctionnalité concernée : liste finale d'actifs, catégories finales, prix/composition/probabilités des packs, solde initial ou mécanisme d'obtention des gemmes, seuils de cache, contrat API, langue et charte finale.
+Les éléments suivants demandent une décision explicite avant la fonctionnalité concernée : liste finale d'actifs, catégories finales, prix/composition/probabilités des packs, solde initial ou mécanisme d'obtention des gemmes, seuils de cache, contrat API, langue définitive des écrans métier et charte finale.
 
 ## Travail par jalons
 
 Le développement suit les phases de [roadmap.md](roadmap.md). Chaque changement cohérent est vérifié puis enregistré dans Git. Les jalons prêts à être montrés sont publiés sur GitHub selon [versioning.md](versioning.md).
+
+## Environnement constaté
+
+Le 23 septembre 2026, `flutter doctor` signale l'absence du composant Android cmdline-tools et un statut de licences inconnu. Aucun appareil physique n'était connecté, et Visual Studio n'est pas installé : le lancement Windows n'est donc pas disponible. L'émulateur Pixel 3a API 34 a néanmoins compilé et lancé le socle.
 
 ## Définition de terminé pour une phase
 

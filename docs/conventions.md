@@ -78,4 +78,6 @@ La direction graphique définitive reste à valider. Le premier socle sert à v�
 
 ## Langue
 
-**[À DÉCIDER]** Le code peut employer l'anglais, recommandé pour les identifiants techniques, tandis que l'interface et le rapport peuvent être en français. La langue finale de l'interface doit être figée avant la création des textes.
+**[DÉCIDÉ — FINDECK]** Les identifiants techniques sont en anglais. Les textes du socle sont en français, comme la documentation.
+
+**[À DÉCIDER]** La langue définitive des futurs écrans métier reste à confirmer avant leur rédaction.

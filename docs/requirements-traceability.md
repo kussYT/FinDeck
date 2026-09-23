@@ -20,7 +20,7 @@ Source normative : *Projet Flutter — Investment Companion*, année universitai
 | R12 | Tests unitaires de logique métier (§13, §11) | Calculateurs financiers et cas limites | Résultat de `flutter test` | Non |
 | R13 | Séparation UI, état, métier, distant et local (§12) | Architecture en couches et repositories | Schéma + explication + code | Non |
 
-La colonne « Réalisé » reste volontairement à « Non » tant qu'aucun code Flutter n'existe.
+La colonne « Réalisé » reste à « Non ». Le socle du 23 septembre 2026 ne change pas ce constat : trois écrans provisoires et une barre de navigation existent, mais ils ne constituent pas les écrans significatifs de R01. Le découpage `app/` et `features/` est en place, sans couches `domain/` ou `data/`, donc R13 n'est pas réalisée non plus.
 
 ## Exigences transversales
 
@@ -44,7 +44,7 @@ La colonne « Réalisé » reste volontairement à « Non » tant qu'aucun code 
 | Données quotidiennes/hebdomadaires acceptables | **[IMPOSÉ — SUJET]** | Le temps réel n'est pas requis. |
 | Actions/entreprises réelles | **[DÉCIDÉ — FINDECK]** | Les ETF et cryptomonnaies ne font pas partie du périmètre initial. |
 | Twelve Data | **[DÉCIDÉ — FINDECK]** | Faisabilité actuelle à revalider avant intégration. |
-| Riverpod, GoRouter, Dio, sqflite, SharedPreferences, fl_chart | **[DÉCIDÉ — FINDECK]** | Versions exactes choisies lors du scaffold. |
+| Riverpod, GoRouter, Dio, sqflite, SharedPreferences, fl_chart | **[DÉCIDÉ — FINDECK]** | Riverpod 2.6.1 et GoRouter 14.2.3 sont épinglés. Les autres packages ne sont pas encore des dépendances. |
 | Raretés Common/Rare/Epic/Legendary | **[DÉCIDÉ — FINDECK]** | Les probabilités et règles d'affectation restent ouvertes. |
 | Nombre, contenu et prix des packs | **[À DÉCIDER]** | Les exemples précédents ne sont pas des spécifications. |
 | Gains quotidiens, missions ou récompenses | **[À DÉCIDER]** | Aucune mécanique n'est validée ; ne pas implémenter. |
