@@ -8,9 +8,9 @@ class PortfolioPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const ProvisionalSectionPage(
       title: 'Portefeuille',
-      message:
-          'Cet écran est provisoire. Les opérations fictives et les calculs '
-          'ne sont pas encore développés. Aucun résultat financier n\'est affiché.',
+      message: 'Cet écran est provisoire. La saisie des opérations fictives '
+          'n\'est pas encore disponible. Les calculs du domaine ne sont pas '
+          'affichés ici. Aucun résultat financier n\'est affiché.',
     );
   }
 }

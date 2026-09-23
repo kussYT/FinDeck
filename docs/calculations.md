@@ -4,6 +4,18 @@
 
 **[DÉCIDÉ — FINDECK]** Les calculs ci-dessous vivent dans des services purs de `domain/services/`. Ils ne lisent ni l'API, ni SQLite, ni Riverpod et ne formatent pas l'interface.
 
+## Réalisation au 23 septembre 2026
+
+Seule la partie calculs de la phase 2 est réalisée. `PortfolioCalculator` applique les formules. La persistance, l'API et l'écran Portefeuille ne les utilisent pas encore.
+
+Le type numérique retenu est `double`. Il évite une dépendance supplémentaire et suffit aux quatre opérations des formules. Sa limite est le format binaire IEEE 754 : certains décimaux, comme 0,1 + 0,2, ne sont pas exacts. Les calculs ne rattrapent pas cet écart par un arrondi intermédiaire. L'arrondi d'affichage, en devise ou en pourcentage, reste hors du domaine et **[À DÉCIDER]** au moment des écrans.
+
+Un résultat est un `CalculatedNumber` : soit `KnownNumber`, soit `UnavailableNumber` avec une raison. Zéro n'est utilisé que lorsqu'il est réellement connu, notamment pour un portefeuille vide ou un cours fourni à 0. Les raisons principales sont un cours absent, un cours invalide, une devise incompatible, des devises mixtes, une valorisation incomplète, un investi nul ou une valeur totale nulle. Une somme non finie, comme deux positions à `1e308` dans la même devise, rend la valorisation entière non calculable (`invalidInput`), même si un cours manque. Aucun infini n'est renvoyé comme montant connu. Les listes `positions`, `books` et `shares` sont des copies non modifiables.
+
+Les achats d'un même symbole et d'une même devise sont agrégés. Le montant investi de chaque ligne est `quantité × prix unitaire`, puis les lignes sont sommées. Les devises différentes deviennent des sous-totaux séparés ; aucun total commun n'est produit et aucun taux de change n'est appliqué. Si une position d'une devise n'a pas de cours utilisable, le total de cette devise est incomplet : la somme des autres positions n'est pas présentée comme la valeur du groupe, et sa performance n'est pas calculée.
+
+Le calculateur ne décide pas si un cours est ancien. Cette politique de fraîcheur reste **[À DÉCIDER]**.
+
 ## Formules retenues
 
 ### Montant investi
@@ -60,7 +72,7 @@ gain = 454 - 400 = 54
 performance = 54 ÷ 400 × 100 = 13,5 %
 ```
 
-Cet exemple doit apparaître dans les tests afin de relier documentation, code et soutenance.
+Cet exemple est couvert par `test/domain/portfolio_calculator_test.dart`.
 
 ## Règles de calcul
 
@@ -69,10 +81,12 @@ Cet exemple doit apparaître dans les tests afin de relier documentation, code e
 - refuser les quantités et prix non finis, nuls ou négatifs pour un achat ;
 - ne jamais substituer zéro à un cours manquant ;
 - si une position ne peut pas être valorisée, signaler le résultat comme incomplet ; une somme partielle ne représente pas la valeur totale du portefeuille et ne permet pas d'afficher sa performance globale ;
-- signaler si une valeur de portefeuille repose sur un cours ancien ;
+- signaler un cours ancien lorsque la politique de fraîcheur sera décidée ; ce signal n'est pas encore calculé ;
 - ne pas additionner sans explication des montants de devises différentes.
 
-**[À DÉCIDER]** Avant le portefeuille, choisir entre un périmètre à devise unique et des sous-totaux séparés par devise. Cette décision n'ajoute pas de conversion de change. La politique de fraîcheur déterminera également quels cours anciens restent utilisables dans une valorisation.
+**[DÉCIDÉ — FINDECK]** Le calculateur sépare les sous-totaux par devise. Il n'additionne pas des devises différentes et n'applique pas de conversion.
+
+**[À DÉCIDER]** La politique de fraîcheur déterminera quels cours anciens restent utilisables dans une valorisation.
 
 ## Cas limites à tester
 

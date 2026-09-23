@@ -78,4 +78,4 @@ flutter devices
 flutter run -d <id Android>
 ```
 
-Les tests actuels couvrent le démarrage sur Marché et la navigation vers Collection puis Portefeuille. Ils ne couvrent aucun calcul, repository ou scénario hors ligne.
+`flutter test` couvre le démarrage, la navigation et les cas limites de `PortfolioCalculator`, dont l'exemple 2 × 200 au cours de 227. Les tests de repository, de persistance et le scénario hors ligne restent à écrire.

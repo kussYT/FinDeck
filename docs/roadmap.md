@@ -32,6 +32,8 @@ La roadmap ordonne le travail sans prétendre que les phases sont déjà réalis
 
 **Sortie :** données utilisateur conservées après redémarrage.
 
+**État au 23 septembre 2026 :** seule la partie calculs est réalisée. Les formules et leurs cas limites sont testés. SQLite, les DAO et la conservation après redémarrage restent à faire. La sortie de la phase n'est donc pas atteinte.
+
 ## Phase 3 — Marché, API et cache
 
 - valider le contrat Twelve Data et la clé locale ;

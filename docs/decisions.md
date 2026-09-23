@@ -63,7 +63,7 @@ Chaque décision indique son statut. « Acceptée » signifie retenue pour la ci
 - **Statut :** Acceptée **[DÉCIDÉ — FINDECK]**
 - **Décision :** valeur, gain, performance et allocation sont des fonctions/services sans Flutter ni I/O.
 - **Pourquoi :** exactitude, tests unitaires et explication en soutenance.
-- **Conséquence :** formatage et données manquantes sont traités hors formule.
+- **Conséquence :** le formatage reste hors des formules. Une donnée manquante est un résultat explicite, pas une valeur inventée. Les formules sont implémentées dans `PortfolioCalculator` ; l'écran ne les affiche pas encore.
 
 ## ADR-010 — GoRouter, Dio et fl_chart
 
@@ -100,6 +100,22 @@ Chaque décision indique son statut. « Acceptée » signifie retenue pour la ci
 - **Pourquoi :** ce sont les versions les plus récentes compatibles avec le SDK installé. Les majeures suivantes de Riverpod, GoRouter et des lints ne le sont pas.
 - **Conséquence :** Dio, sqflite, SharedPreferences et fl_chart ne sont pas des dépendances. La valeur `1.0.0+1` du pubspec vient du modèle Flutter et n'est pas un numéro de version publié.
 
+## ADR-015 — `double` et résultat non calculable
+
+- **Statut :** Implémentée pour les calculs **[DÉCIDÉ — FINDECK]**
+- **Contexte :** le type numérique et la représentation d'un cours manquant devaient être choisis avant les formules.
+- **Décision :** les montants sont des `double`. Un résultat est `KnownNumber` ou `UnavailableNumber`. Les calculs n'arrondissent pas les valeurs intermédiaires.
+- **Pourquoi :** aucun package supplémentaire, formules explicables, et distinction visible entre zéro connu et valeur absente.
+- **Conséquence :** 0,1 + 0,2 n'est pas exactement 0,3. Un dépassement vers l'infini rend la valorisation non calculable au lieu de produire un montant connu infini. L'affichage devra arrondir plus tard, sans modifier le résultat du domaine. La fraîcheur d'un cours n'est pas encore classée.
+
+## ADR-016 — Sous-totaux par devise
+
+- **Statut :** Implémentée pour les calculs **[DÉCIDÉ — FINDECK]**
+- **Contexte :** il fallait choisir entre un portefeuille à devise unique et des sous-totaux séparés.
+- **Décision :** une devise produit son propre sous-total. Des devises différentes ne sont pas additionnées et aucun taux de change n'est appliqué. Une position sans cours rend le sous-total de sa devise incomplet.
+- **Pourquoi :** une somme d'euros et de dollars n'a pas de sens, et une somme partielle ne doit pas être présentée comme un total.
+- **Conséquence :** le futur écran devra montrer chaque devise séparément. La fraîcheur des cours reste à décider.
+
 ## Décisions en attente
 
 - ADR futur : catalogue initial et catégories ;
@@ -108,4 +124,4 @@ Chaque décision indique son statut. « Acceptée » signifie retenue pour la ci
 - ADR futur : seuils de fraîcheur et rétention ;
 - ADR futur : génération de code et modèles immuables, à reconsidérer avec le domaine ;
 - ADR futur : langue définitive des écrans métier, charte graphique finale, maquettes de navigation ;
-- URL du dépôt, visibilité, convention de branches et numérotation des versions.
+- Convention des branches de travail et numérotation des versions. Le dépôt public `kussYT/FinDeck` et la branche principale `main` sont définis dans [versioning.md](versioning.md).

@@ -2,7 +2,7 @@
 
 Ce dossier rassemble le cadrage fonctionnel et technique de FinDeck, les choix de conception et les critères de validation. Il sert de référence pendant le développement et de base au rapport et à la soutenance.
 
-> État du projet au 23 septembre 2026 : le socle Flutter est lançable. Il affiche une navigation provisoire entre Marché, Collection et Portefeuille, sans données de marché, persistance, packs ni calculs. Le reste de ce dossier décrit encore une **cible**, pas une fonctionnalité réalisée.
+> État du projet au 23 septembre 2026 : le socle Flutter est lançable et les calculs de portefeuille sont testés dans le domaine. L'écran ne les affiche pas. La persistance, l'API, les packs et les gemmes restent une **cible**, pas une fonctionnalité réalisée.
 
 ## Légende de décision
 

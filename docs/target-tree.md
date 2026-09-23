@@ -2,9 +2,9 @@
 
 **[DÉCIDÉ — FINDECK]** Cette arborescence reste la cible. Elle ne doit pas être confondue avec les fichiers réellement créés.
 
-## État réel après la phase 1
+## État réel
 
-Au 23 septembre 2026, seuls les fichiers utiles au socle existent. `core/`, `domain/`, `data/` et les fonctionnalités encore vides ne sont pas créés, conformément à la règle qui interdit les dossiers vides.
+Au 23 septembre 2026, le socle et les calculs existent. `core/`, `data/` et les fonctionnalités encore vides ne sont pas créés.
 
 ```text
 lib/
@@ -15,12 +15,21 @@ lib/
 │   ├── router.dart
 │   ├── shell.dart
 │   └── theme.dart
+├── domain/
+│   ├── models/
+│   │   ├── calculated_number.dart
+│   │   ├── market_quote.dart
+│   │   ├── portfolio_valuation.dart
+│   │   └── purchase.dart
+│   └── services/
+│       └── portfolio_calculator.dart
 └── features/
     ├── collection/collection_page.dart
     ├── market/market_page.dart
     └── portfolio/portfolio_page.dart
 test/
-└── app/navigation_test.dart
+├── app/navigation_test.dart
+└── domain/portfolio_calculator_test.dart
 ```
 
 ## Cible

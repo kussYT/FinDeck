@@ -2,19 +2,19 @@
 
 > Les réponses ci-dessous décrivent encore la cible, sauf mention contraire. Ne pas les présenter comme du code déjà écrit.
 
-## État vérifié après le socle
+## État vérifié
 
-Au 23 septembre 2026, seul le socle est réalisé et lancé sur l'émulateur Android Pixel 3a API 34 :
+Au 23 septembre 2026, deux parties sont réalisées.
 
-- démarrage avec `ProviderScope`, GoRouter et un thème provisoire ;
-- trois écrans qui annoncent l'absence de leur contenu ;
-- tests de démarrage et de navigation.
+Le socle a été lancé sur l'émulateur Android Pixel 3a API 34 : `ProviderScope`, GoRouter, thème provisoire et trois écrans qui annoncent que leur contenu métier n'est pas affiché. `flutter doctor` signale l'absence des cmdline-tools Android ; cela n'a pas bloqué l'émulateur.
 
-Il n'existe ni repository, ni API, ni SQLite, ni calcul, ni donnée de marché. La difficulté d'environnement constatée est l'avertissement `flutter doctor` sur les cmdline-tools Android : il n'a pas bloqué l'émulateur.
+La partie calculs de la phase 2 est réalisée dans `PortfolioCalculator`. La persistance SQLite, l'API, les repositories, les cartes, les packs et les gemmes ne le sont pas. L'écran Portefeuille n'affiche aucun résultat.
 
 ### Qu'est-ce qui est réellement codé aujourd'hui ?
 
-`appRouterProvider` expose le routeur. Les pages Marché, Collection et Portefeuille affichent un texte provisoire. Le thème fixe une palette sobre, une échelle typographique et des espacements de 4, 8, 16, 24 et 32.
+`appRouterProvider` expose le routeur. Les pages restent provisoires. Le thème fixe une palette sobre, une échelle typographique et des espacements de 4, 8, 16, 24 et 32.
+
+`Purchase` valide un achat. `PortfolioCalculator` calcule le montant investi, la valeur, le gain, la performance et la répartition avec des `double`, sans arrondi intermédiaire. Un résultat absent est un `UnavailableNumber`, jamais un zéro inventé. Les devises forment des sous-totaux séparés.
 
 ## Présentation en 60 secondes
 
@@ -52,7 +52,7 @@ Un Widget peut être reconstruit souvent. Y placer l'appel réseau couplerait af
 
 ### Où se trouvent les calculs métier ?
 
-Dans des services purs de la couche `domain`, sans dépendance Flutter, HTTP ou SQLite. Ils reçoivent des valeurs, retournent un résultat et sont testés avec des cas normaux et limites.
+Dans `lib/domain/services/portfolio_calculator.dart`. Cette classe ne dépend ni de Flutter, ni de HTTP, ni de SQLite. Elle reçoit des achats déjà validés et des cours, puis retourne des nombres connus ou des raisons explicites. Les tests de `test/domain/portfolio_calculator_test.dart` couvrent les cas limites.
 
 ### Pourquoi ne pas utiliser une Clean Architecture plus complète ?
 
@@ -140,23 +140,27 @@ Le contrôle du solde, le débit des gemmes et l'ajout/incrément des cartes son
 
 ### Comment calculez-vous la valeur d'une position ?
 
-Quantité totale multipliée par le cours actuel. La valeur totale du portefeuille nécessite un cours utilisable pour chaque position et des montants de même devise. Si un cours manque, une éventuelle somme partielle doit être présentée comme incomplète et ne sert pas à calculer la performance globale.
+Les achats du même symbole et de la même devise sont additionnés. La quantité totale est multipliée par le cours actuel, sans arrondi. Exemple testé : 2 actions achetées 200 et cotées 227 donnent un investi de 400 et une valeur de 454. Si un cours manque dans une devise, le total de cette devise est incomplet : la somme des autres positions n'est pas utilisée comme valeur globale, ni pour la performance.
 
 ### Comment calculez-vous le gain et la performance ?
 
-Le gain vaut valeur actuelle moins montant investi. La performance vaut gain divisé par montant investi, multiplié par 100. Si l'investi est nul, la performance est indéfinie et la division n'est pas exécutée.
+Le gain vaut valeur actuelle moins montant investi. Dans l'exemple, 454 − 400 = 54. La performance vaut gain divisé par montant investi, multiplié par 100, soit 54 / 400 × 100 = 13,5 %. Si l'investi est nul, la méthode s'arrête avant la division et retourne `zeroInvested`.
 
 ### Comment calculez-vous la répartition ?
 
-La valeur de l'élément est divisée par la valeur totale du portefeuille puis multipliée par 100. Si le total est nul, aucun pourcentage n'est produit.
+La valeur de la position est divisée par la valeur totale de la même devise, puis multipliée par 100. Si ce total est nul ou incomplet, aucun pourcentage n'est produit. Les poids calculés restent des `double` ; leur somme est proche de 100 % sans être forcée par un arrondi.
 
 ### Que faites-vous si un cours est absent ?
 
-On ne remplace jamais un cours absent par zéro. Le résultat est marqué non calculable ou incomplet et l'interface l'explique.
+Le domaine retourne `missingQuote`. Il ne substitue pas zéro. Un cours fourni à 0 reste, lui, une valeur connue. L'écran ne l'explique pas encore, parce que le portefeuille affiché est toujours provisoire.
 
 ### Pourquoi ne pas additionner toutes les devises ?
 
-Additionner des euros et dollars sans taux de change n'a pas de sens. La V1 affiche la devise et ne promet pas de conversion ; cette limitation doit être visible si le catalogue contient plusieurs devises.
+Additionner des euros et des dollars sans taux de change n'a pas de sens. `PortfolioCalculator` produit un sous-total par devise et refuse un total unique avec `mixedCurrencies`. Aucune conversion n'est implémentée.
+
+### Pourquoi `double` plutôt qu'un type décimal ?
+
+Pour garder les formules lisibles sans dépendance supplémentaire. La limite assumée est le binaire IEEE 754 : les valeurs intermédiaires ne sont pas arrondies à deux décimales, et l'affichage futur devra le faire séparément. Si une somme dépasse les valeurs finies, le résultat est non calculable ; il ne devient pas un infini connu.
 
 ## Questions/réponses — animations
 

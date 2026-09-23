@@ -45,7 +45,7 @@ Les éléments suivants demandent une décision explicite avant la fonctionnalit
 
 ## Travail par jalons
 
-Le développement suit les phases de [roadmap.md](roadmap.md). Chaque changement cohérent est vérifié puis enregistré dans Git. Les jalons prêts à être montrés sont publiés sur GitHub selon [versioning.md](versioning.md).
+Le développement suit les phases de [roadmap.md](roadmap.md). Chaque changement cohérent est vérifié puis présenté pour revue. Les commits et les push sont effectués manuellement par Marius, sauf demande explicite pour une opération précise, selon [versioning.md](versioning.md). Laisser les modifications non commitées à la fin du développement et proposer un message adapté au changement.
 
 ## Environnement constaté
 

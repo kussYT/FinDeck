@@ -108,6 +108,18 @@ classDiagram
 - Une position est dérivée des opérations ; elle ne doit pas contredire leur somme.
 - Les calculs utilisent la devise de l'actif telle qu'affichée. Aucune conversion de devise n'est prévue dans le périmètre actuel.
 
+## Réalisé pour les calculs
+
+Au 23 septembre 2026, seuls les modèles utiles aux formules existent. Ce ne sont pas encore les entités persistées.
+
+- `Purchase` : symbole, quantité, prix unitaire et devise d'un achat fictif valide. Le symbole et la devise sont normalisés en majuscules. L'identifiant et la date de `PortfolioTransaction` ne sont pas encore modélisés.
+- `MarketQuote` : cours éventuellement absent pour un symbole et une devise.
+- `PositionValuation`, `CurrencyBook` et `PortfolioValuation` : résultats calculés, pas des données saisies. Les listes de positions, de sous-totaux et de poids sont copiées et non modifiables.
+
+`Asset`, `PricePoint`, les cartes, les packs, les gemmes et le portefeuille persisté ne sont pas implémentés. Une position affichée ne contredit pas les achats, parce qu'elle est uniquement dérivée d'eux.
+
+Le type numérique des calculs est `double`. L'arrondi d'affichage reste ouvert.
+
 ## Détails non figés
 
 **[À DÉCIDER]**
@@ -116,4 +128,4 @@ classDiagram
 - catégorie sous forme de chaîne ou d'énumération ;
 - gestion future de ventes fictives — seule la saisie d'achats est engagée actuellement ;
 - algorithme de tirage des packs et gestion des doublons au-delà de l'incrément de quantité ;
-- politique d'arrondi monétaire et type numérique définitif.
+- politique d'arrondi monétaire à l'affichage.

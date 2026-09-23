@@ -2,7 +2,7 @@
 
 Application Flutter pédagogique. Le cadrage fonctionnel et technique est dans [docs/README.md](docs/README.md).
 
-Au 23 septembre 2026, le socle démarre et permet de naviguer entre Marché, Collection et Portefeuille. Ces écrans indiquent que leur contenu n'est pas encore développé. Il n'y a pas de données de marché, de persistance, de packs ni de calculs.
+Au 23 septembre 2026, le socle permet de naviguer entre Marché, Collection et Portefeuille. Les calculs de valorisation existent dans le domaine et sont couverts par des tests. Les écrans ne les affichent pas. Il n'y a pas encore de données de marché, de persistance, de packs ni de gemmes.
 
 ## Lancer
 

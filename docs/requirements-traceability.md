@@ -15,12 +15,12 @@ Source normative : *Projet Flutter — Investment Companion*, année universitai
 | R07 | Fonctionnement partiel hors connexion (§6, §11) | Repli sur cache avec date de dernière actualisation après fermeture complète | Scénario sans réseau | Non |
 | R08 | États chargement, données et erreur (§7, §11) | Riverpod/AsyncValue et états métier explicites | Démo des différents états | Non |
 | R09 | Visualisation graphique significative (§11) | Courbe historique et répartition du portefeuille | Démonstration | Non |
-| R10 | Au moins 2 calculs métier (§8, §11) | Valeur, gain/perte, performance et répartition | Tests unitaires | Non |
+| R10 | Au moins 2 calculs métier (§8, §11) | Valeur, gain/perte, performance et répartition | Tests unitaires | Oui pour les formules ; affichage non fait |
 | R11 | Au moins 3 animations, dont 2 codées (§10, §11) | Pack, favori, valeur de portefeuille ; comportements contrôlés | Code + démonstration | Non |
-| R12 | Tests unitaires de logique métier (§13, §11) | Calculateurs financiers et cas limites | Résultat de `flutter test` | Non |
+| R12 | Tests unitaires de logique métier (§13, §11) | Calculateurs financiers et cas limites | Résultat de `flutter test` | Oui pour les calculs ; persistance non testée |
 | R13 | Séparation UI, état, métier, distant et local (§12) | Architecture en couches et repositories | Schéma + explication + code | Non |
 
-La colonne « Réalisé » reste à « Non ». Le socle du 23 septembre 2026 ne change pas ce constat : trois écrans provisoires et une barre de navigation existent, mais ils ne constituent pas les écrans significatifs de R01. Le découpage `app/` et `features/` est en place, sans couches `domain/` ou `data/`, donc R13 n'est pas réalisée non plus.
+Au 23 septembre 2026, R10 et R12 sont couverts pour les formules du domaine et leurs tests. L'écran Portefeuille ne les affiche pas. R01 reste non réalisé : les trois écrans sont encore provisoires. `domain/` contient les calculs, mais ni repository, ni SQLite, ni API : R13 n'est pas réalisée.
 
 ## Exigences transversales
 

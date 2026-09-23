@@ -4,7 +4,7 @@
 
 ## État au 23 septembre 2026
 
-Git est initialisé localement sur la branche `master`, créée par défaut. L'identité d'auteur provient de la configuration globale déjà présente. Aucun dépôt distant n'est configuré et aucun tag n'est posé.
+La branche principale est `main`. Le dépôt distant `origin` pointe vers le dépôt public [kussYT/FinDeck](https://github.com/kussYT/FinDeck). L'identité d'auteur provient de la configuration globale déjà présente. Aucun tag de livraison n'est posé.
 
 Le cadrage documentaire et le socle Flutter sont deux commits distincts. Le socle a été vérifié par le formatage, l'analyse statique, les tests de démarrage et de navigation, puis un lancement sur l'émulateur Android Pixel 3a API 34. `flutter doctor` signale toutefois l'absence des cmdline-tools Android et un statut de licences inconnu ; cet avertissement n'a pas empêché ce lancement. Aucun appareil physique n'était connecté.
 
@@ -27,6 +27,8 @@ Les numéros de version et les tags seront fixés lorsque des versions exécutab
 
 ## Commits
 
+Les commits et les push sont exécutés manuellement par Marius, sauf demande explicite pour une opération précise. À la fin d'une étape de développement, laisser les modifications disponibles pour revue et proposer un message de commit. La fin d'une phase n'autorise pas une publication automatique. Un push reste une action distincte d'un commit local.
+
 Un commit regroupe une intention cohérente : une fonctionnalité avec ses tests, une correction, ou une mise à jour documentaire. Éviter les commits mélangeant une réorganisation générale avec un changement de comportement.
 
 Exemples de messages à adapter aux changements réellement réalisés :
@@ -46,12 +48,12 @@ Les dates et les auteurs correspondent au travail effectué. Ne pas antidater le
 3. Réaliser le changement, puis examiner les fichiers modifiés.
 4. Exécuter les vérifications pertinentes. Dès que le socle existe : formatage, analyse statique, tests et essai du parcours modifié.
 5. Mettre à jour la documentation selon le résultat obtenu.
-6. Enregistrer un commit cohérent, puis publier sur le dépôt GitHub prévu.
+6. Présenter les changements et les vérifications à Marius, qui effectue le commit et le push manuellement après sa revue.
 
 Les règles des packs ne bloquent pas la navigation ; elles doivent être validées avant les tirages et débits de gemmes. De même, l'API peut être vérifiée au moment du jalon Marché.
 
 ## Configuration de GitHub
 
-Avant la première publication, préciser le dépôt cible et sa visibilité. Utiliser l'identité Git de l'auteur du travail et conserver les fichiers de configuration locale, secrets et sorties de compilation hors du suivi. Ne pas créer de dépôt distant ou choisir sa visibilité implicitement.
+Le dépôt est public et sa branche principale est `main`. Utiliser l'identité Git de l'auteur du travail et conserver les fichiers de configuration locale, secrets et sorties de compilation hors du suivi.
 
-**[À DÉCIDER]** URL du dépôt, visibilité, convention de branches et numérotation des versions. L'identité Git globale est déjà configurée. La valeur `1.0.0+1` de `pubspec.yaml` est celle générée par Flutter ; elle n'est pas une version publiée. Pour un travail individuel, une branche principale stable et des branches courtes par changement suffisent ; une organisation plus complexe doit répondre à un besoin réel.
+**[À DÉCIDER]** Convention des branches de travail et numérotation des versions. L'identité Git globale est déjà configurée. La valeur `1.0.0+1` de `pubspec.yaml` est celle générée par Flutter ; elle n'est pas une version publiée. Pour un travail individuel, une branche principale stable et des branches courtes par changement suffisent ; une organisation plus complexe doit répondre à un besoin réel.
